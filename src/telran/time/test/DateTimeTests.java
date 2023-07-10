@@ -1,4 +1,5 @@
-package telran.time;
+package telran.time.test;
+import telran.time.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,16 +34,17 @@ class DateTimeTests {
 		TemporalAdjuster fr13 = new NextFriday13();
 		ZonedDateTime zdt = ZonedDateTime.now();
 		ZonedDateTime fr13Expected = ZonedDateTime.of(2023, 10, 13, 0, 0, 0, 0, ZoneId.systemDefault());
-		assertEquals(fr13Expected, zdt.with(fr13));
+		assertEquals(fr13Expected.toLocalDate(), zdt.with(fr13).toLocalDate());
 		LocalDate fr13Expected2 = LocalDate.of(2024, 9, 13);
 		LocalDate ld = LocalDate.of(2023, 10, 13);
 		assertEquals(fr13Expected2, ld.with(fr13));
+		assertThrowsExactly(UnsupportedTemporalTypeException.class,
+				()-> LocalTime.now().with(new NextFriday13()));
 		
 	}
 	
 	@Test
 	void canadaCurrentTime() {
-		//TODO
 		//display current day and time 
 		//in all timeZones related to Canada
 		//Data / Time (HH:mm)/ Time Zone Name		
@@ -51,7 +53,7 @@ class DateTimeTests {
 	}
 	void displayCurrentTime(String zoneName) {
 		String CANADA_ZONE = "Canada";
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/YYYY HH:mm VV");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d/M/YYYY HH:mm VV ");
 		
 		Set<String> zonesId = ZoneId.getAvailableZoneIds(); 
 		zonesId.stream().filter((zone)-> zone.contains(CANADA_ZONE)).
