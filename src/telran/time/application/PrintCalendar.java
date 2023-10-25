@@ -114,7 +114,7 @@ public class PrintCalendar {
 																								// current month
 		int year = args.length > 1 ? getYear(args[1]) : ld.get(ChronoField.YEAR);
 
-		DayOfWeek firstDayWeek = args.length > 2 ? getFirstDayWeek(args[2]) : daysOfWeek[0];
+		DayOfWeek firstDayWeek = args.length > 2 ? getFirstDayWeek(args[2]) : DayOfWeek.MONDAY;
 
 		return new RecordArguments(month, year, firstDayWeek);
 	}
